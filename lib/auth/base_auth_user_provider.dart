@@ -6,7 +6,7 @@ class AuthUserInfo {
     this.photoUrl,
     this.phoneNumber,
   });
-//oi
+
   final String? uid;
   final String? email;
   final String? displayName;

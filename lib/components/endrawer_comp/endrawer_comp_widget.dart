@@ -590,35 +590,44 @@ class _EndrawerCompWidgetState extends State<EndrawerCompWidget> {
               thickness: 2.0,
               color: FlutterFlowTheme.of(context).alternate,
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-              child: InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  if ((currentUserEmail == 'rafaelhalder@gmail.com') ||
-                      (currentUserEmail != '')) {
-                    context.pushNamed(AdminWidget.routeName);
-                  }
-                },
-                child: Container(
-                  width: 130.0,
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primaryBackground,
-                    borderRadius: BorderRadius.circular(65.0),
-                    border: Border.all(
-                      color: FlutterFlowTheme.of(context).primaryText,
+            if (currentUserEmail == 'hoteldunamys25@gmail.com')
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if ((currentUserEmail == 'rafaelhalder@gmail.com') ||
+                        (currentUserEmail != '')) {
+                      context.pushNamed(AdminWidget.routeName);
+                    }
+                  },
+                  child: Container(
+                    width: 130.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      borderRadius: BorderRadius.circular(65.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
                     ),
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    child: Text(
-                      'Administrador',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            font: GoogleFonts.inter(
+                    child: Align(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      child: Text(
+                        'Administrador',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              font: GoogleFonts.inter(
+                                fontWeight: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontWeight,
+                                fontStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .fontStyle,
+                              ),
+                              letterSpacing: 0.0,
                               fontWeight: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .fontWeight,
@@ -626,19 +635,11 @@ class _EndrawerCompWidgetState extends State<EndrawerCompWidget> {
                                   .bodyMedium
                                   .fontStyle,
                             ),
-                            letterSpacing: 0.0,
-                            fontWeight: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontWeight,
-                            fontStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .fontStyle,
-                          ),
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
           ],
         ),
       ),

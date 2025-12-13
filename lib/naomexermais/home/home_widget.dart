@@ -12,6 +12,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart'
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ff_theme/flutter_flow/flutter_flow_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_model.dart';
@@ -37,6 +38,12 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomeModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().pedidoEmAndamento = false;
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -148,147 +155,141 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 ],
                               ),
                             ),
-                            if (FFAppState().pedidoEmAndamento == true)
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(1.0, 0.0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 15.0, 0.0),
-                                        child: Text(
-                                          'Seu pedido',
-                                          style: FlutterFlowTheme.of(context)
-                                              .titleMedium
-                                              .override(
-                                                font: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMedium
-                                                          .fontStyle,
-                                                ),
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 12.0,
-                                                letterSpacing: 0.0,
+                            Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(1.0, 0.0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 15.0, 0.0),
+                                      child: Text(
+                                        'Seu pedido',
+                                        style: FlutterFlowTheme.of(context)
+                                            .titleMedium
+                                            .override(
+                                              font: GoogleFonts.inter(
                                                 fontWeight: FontWeight.normal,
                                                 fontStyle:
                                                     FlutterFlowTheme.of(context)
                                                         .titleMedium
                                                         .fontStyle,
                                               ),
-                                        ),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              fontSize: 12.0,
+                                              letterSpacing: 0.0,
+                                              fontWeight: FontWeight.normal,
+                                              fontStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleMedium
+                                                      .fontStyle,
+                                            ),
                                       ),
                                     ),
-                                    if (FFAppState().pedidoEmAndamento == true)
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            if (FFAppState().confirmRoom ==
-                                                true) {
-                                              context.pushNamed(
-                                                RoomWidget.routeName,
-                                                queryParameters: {
-                                                  'idOrder': serializeParam(
-                                                    FFAppState().orderId,
-                                                    ParamType.DocumentReference,
+                                  ),
+                                  if (FFAppState().pedidoEmAndamento == true)
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (FFAppState().confirmRoom ==
+                                              true) {
+                                            context.pushNamed(
+                                              RoomWidget.routeName,
+                                              queryParameters: {
+                                                'idOrder': serializeParam(
+                                                  FFAppState().orderId,
+                                                  ParamType.DocumentReference,
+                                                ),
+                                              }.withoutNulls,
+                                            );
+                                          } else {
+                                            context.pushNamed(
+                                                MyordersWidget.routeName);
+                                          }
+                                        },
+                                        child: badges.Badge(
+                                          badgeContent: Text(
+                                            ' ',
+                                            textAlign: TextAlign.end,
+                                            style: FlutterFlowTheme.of(context)
+                                                .titleSmall
+                                                .override(
+                                                  font: GoogleFonts.poppins(
+                                                    fontWeight:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontWeight,
+                                                    fontStyle:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .titleSmall
+                                                            .fontStyle,
                                                   ),
-                                                }.withoutNulls,
-                                              );
-                                            } else {
-                                              context.pushNamed(
-                                                  MyordersWidget.routeName);
-                                            }
-                                          },
-                                          child: badges.Badge(
-                                            badgeContent: Text(
-                                              ' ',
-                                              textAlign: TextAlign.end,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .titleSmall
-                                                      .override(
-                                                        font:
-                                                            GoogleFonts.poppins(
-                                                          fontWeight:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontWeight,
-                                                          fontStyle:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmall
-                                                                  .fontStyle,
-                                                        ),
-                                                        color: Colors.white,
-                                                        fontSize: 6.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontWeight,
-                                                        fontStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmall
-                                                                .fontStyle,
-                                                      ),
-                                            ),
-                                            showBadge: true,
-                                            shape: badges.BadgeShape.circle,
-                                            badgeColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryColor1,
-                                            elevation: 4.0,
-                                            padding: EdgeInsets.all(4.0),
-                                            position:
-                                                badges.BadgePosition.topStart(),
-                                            animationType:
-                                                badges.BadgeAnimationType.scale,
-                                            toAnimate: true,
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                              child: Image.asset(
-                                                'assets/images/campainha.png',
-                                                width: 23.0,
-                                                height: 23.0,
-                                                fit: BoxFit.contain,
-                                              ),
+                                                  color: Colors.white,
+                                                  fontSize: 6.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontWeight,
+                                                  fontStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall
+                                                          .fontStyle,
+                                                ),
+                                          ),
+                                          showBadge: true,
+                                          shape: badges.BadgeShape.circle,
+                                          badgeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .secondaryColor1,
+                                          elevation: 4.0,
+                                          padding: EdgeInsets.all(4.0),
+                                          position:
+                                              badges.BadgePosition.topStart(),
+                                          animationType:
+                                              badges.BadgeAnimationType.scale,
+                                          toAnimate: true,
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                            child: Image.asset(
+                                              'assets/images/campainha.png',
+                                              width: 23.0,
+                                              height: 23.0,
+                                              fit: BoxFit.contain,
                                             ),
                                           ),
                                         ),
                                       ),
-                                    if (currentUserReference == null)
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                        child: Image.asset(
-                                          'assets/images/campainha.png',
-                                          width: 23.0,
-                                          height: 23.0,
-                                          fit: BoxFit.contain,
-                                        ),
+                                    ),
+                                  if (FFAppState().pedidoEmAndamento == false)
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(0.0),
+                                      child: Image.asset(
+                                        'assets/images/campainha.png',
+                                        width: 23.0,
+                                        height: 23.0,
+                                        fit: BoxFit.contain,
                                       ),
-                                  ].divide(SizedBox(width: 0.0)),
-                                ),
+                                    ),
+                                ].divide(SizedBox(width: 0.0)),
                               ),
+                            ),
                           ].divide(SizedBox(width: 16.0)),
                         ),
                       ),
@@ -860,16 +861,16 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           0.0),
                                                                       child:
                                                                           Text(
-                                                                        '${formatNumber(
+                                                                        formatNumber(
                                                                           listViewMenuRecord
                                                                               .price,
                                                                           formatType:
                                                                               FormatType.decimal,
                                                                           decimalType:
-                                                                              DecimalType.automatic,
+                                                                              DecimalType.commaDecimal,
                                                                           currency:
-                                                                              'R\$ ',
-                                                                        )}',
+                                                                              'R\$',
+                                                                        ),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
