@@ -131,7 +131,8 @@
   │    │   └─ finished: false           │   ├─ payment     │
   │    │                                 │   └─ total       │
   │    ├─ Cria OrderProducts            ├─ Cria Products  │
-  │    ├─ ❌ NÃO atualiza estoque      ├─ Atualiza Estoque│
+  │    ├─ ✅ NÃO atualiza estoque      ├─ Atualiza Estoque│
+  │    │   (aguarda confirmação)         │                 │
   │    ├─ Deleta ProductCartUser        ├─ Delete Cart    │
   │    ├─ Limpa AppState                ├─ Limpa AppState │
   │    ├─ COMMIT                         └─ COMMIT         │

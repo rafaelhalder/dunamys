@@ -37,21 +37,26 @@
    - Nome: `validateStockAvailability`
    - Código:
    ```dart
-   Future<bool> validateStockAvailability(
+   Future<Map<String, dynamic>> validateStockAvailability(
      List<DocumentReference> cartItems,
    ) async {
      for (var item in cartItems) {
        var cartDoc = await item.get();
        var productRef = cartDoc.get('product');
        var productDoc = await productRef.get();
+       var productName = productDoc.get('name');
        var quantityNeeded = cartDoc.get('quantity');
        var stockAvailable = productDoc.get('quantity');
        
        if (stockAvailable < quantityNeeded) {
-         return false; // Sem estoque
+         return {
+           'success': false,
+           'message': 'Produto "$productName" sem estoque suficiente',
+           'product': productName
+         };
        }
      }
-     return true; // Tudo OK
+     return {'success': true, 'message': 'Estoque disponível'};
    }
    ```
 
@@ -62,12 +67,12 @@
      Action 1: Call Custom Action
        - Action: validateStockAvailability
        - Parameters: FFAppState().cartUser
-       - Set Variable: stockAvailable (Boolean)
+       - Set Variable: stockResult (Map)
      
      Action 2: Conditional
-       - Condition: stockAvailable == true
+       - Condition: stockResult['success'] == true
        - Then: Navigate to PaymentUser
-       - Else: Show Snack Bar "Produto sem estoque"
+       - Else: Show Snack Bar com stockResult['message']
      ```
 
 ---
@@ -120,8 +125,9 @@ Para cada campo de texto:
 **Data de Validade:**
 1. Configure:
    - Input Type: `Text`
-   - Regex Pattern: `^(0[1-9]|1[0-2])\/20[2-9][0-9]$`
+   - Regex Pattern: `^(0[1-9]|1[0-2])\/[2-9][0-9]{3}$`
    - Error Message: "Data inválida (MM/YYYY)"
+   - Nota: Adicione validação customizada para garantir data futura
 
 **CVV:**
 1. Configure:

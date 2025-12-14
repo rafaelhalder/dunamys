@@ -288,7 +288,7 @@ Text('25 min')
 
 2. **Implementação:**
    ```dart
-   Future<int> calculateEstimatedTime(List<OrderProduct> items) {
+   Future<int> calculateEstimatedTime(List<OrderProduct> items) async {
      int baseTime = 10; // minutos base
      int itemTime = items.length * 5;
      int queueOrders = await getActiveOrdersCount();
