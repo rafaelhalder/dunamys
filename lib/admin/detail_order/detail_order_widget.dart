@@ -47,6 +47,35 @@ class _DetailOrderWidgetState extends State<DetailOrderWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.orderID == null) {
+      return Scaffold(
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        appBar: AppBar(
+          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+          automaticallyImplyLeading: false,
+          leading: FlutterFlowIconButton(
+            borderColor: Colors.transparent,
+            borderRadius: 30.0,
+            borderWidth: 1.0,
+            buttonSize: 65.0,
+            icon: Icon(
+              Icons.arrow_circle_left_sharp,
+              color: FlutterFlowTheme.of(context).primaryText,
+              size: 35.0,
+            ),
+            onPressed: () async {
+              context.pop();
+            },
+          ),
+        ),
+        body: Center(
+          child: Text(
+            'Erro: Pedido não encontrado.',
+            style: FlutterFlowTheme.of(context).bodyMedium,
+          ),
+        ),
+      );
+    }
     return StreamBuilder<OrderRecord>(
       stream: OrderRecord.getDocument(widget.orderID!.reference),
       builder: (context, snapshot) {
@@ -300,6 +329,12 @@ class _DetailOrderWidgetState extends State<DetailOrderWidget> {
                                               final columnOrderProductsRecord =
                                                   columnOrderProductsRecordList[
                                                       columnIndex];
+                                              if (columnOrderProductsRecord.product == null) {
+                                                return Padding(
+                                                  padding: const EdgeInsets.all(8.0),
+                                                  child: Text('Produto não encontrado (removido)'),
+                                                );
+                                              }
                                               return StreamBuilder<MenuRecord>(
                                                 stream: MenuRecord.getDocument(
                                                     columnOrderProductsRecord
@@ -758,12 +793,15 @@ class _DetailOrderWidgetState extends State<DetailOrderWidget> {
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 25.0, 0.0, 0.0),
                                       child: Text(
-                                        dateTimeFormat(
-                                          "d/M/y",
-                                          detailOrderOrderRecord.date!,
-                                          locale: FFLocalizations.of(context)
-                                              .languageCode,
-                                        ),
+                                        detailOrderOrderRecord.date != null
+                                            ? dateTimeFormat(
+                                                "d/M/y",
+                                                detailOrderOrderRecord.date!,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
+                                              )
+                                            : "Data n/a",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
